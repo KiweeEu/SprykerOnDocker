@@ -8,8 +8,24 @@ services:
     networks:
       - backend
 
+  web:
+    image: nginx:1.13-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - backend
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+      - ./docker/nginx/spryker:/etc/nginx/spryker
+      - .:/var/www/html
+    depends_on:
+      - php71
+
 networks:
   backend:
 
 volumes:
   dbdata:
+  appdata:
