@@ -1,6 +1,7 @@
 version: "3"
 services:
   php71:
+    image: kiwee:php71
     build: ./docker/php71
     volumes:
       - .:/var/www/html
@@ -23,6 +24,18 @@ services:
     depends_on:
       - php71
 
+  pgsql:
+    image: postgres:9-alpine
+    restart: always
+    environment:
+      - "SPRYKER_DB_USER=spryker"
+      - "SPRYKER_DB_PASSWORD=mate20mg"
+      - "SPRYKER_DB_DATABASE=spryker"
+      - "POSTGRES_PASSWORD=mate20mg"
+    volumes:
+      - ./docker/postgres/init/01-sprykerdb.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+    ports:
+      - '5432:5432'
 networks:
   backend:
 
