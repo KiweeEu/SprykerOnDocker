@@ -22,7 +22,7 @@ services:
       - ./docker/nginx/spryker:/etc/nginx/spryker
       - .:/var/www/html
     depends_on:
-      - php71
+      - sp_php71
 
   sp_pgsql:
     image: postgres:9-alpine
@@ -57,6 +57,22 @@ services:
     networks:
       - backend
 
+  sp_redis:
+    image: redis:3-alpine
+    ports:
+      - "10009:10009"
+    command: redis-server --port 10009
+
+  sp_jenkins:
+    image: kiwee:jenkins
+    build: ./docker/jenkins
+    ports:
+      - "10077:10077"
+    volumes:
+      - sp_jenkinsdata:/var/jenkins_home
+    environment:
+      - JENKINS_OPTS="--httpPort=10077"
+
 networks:
   backend:
 
@@ -64,3 +80,4 @@ volumes:
   sp_dbdata:
   sp_appdata:
   sp_esdata:
+  sp_jenkinsdata:
