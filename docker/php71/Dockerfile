@@ -48,4 +48,10 @@ RUN apk add --update --no-cache postgresql-dev \
 RUN apk add --update --no-cache postgresql-dev \
     && docker-php-ext-install pdo_pgsql
 
+# graphviz
+RUN apk add --update --no-cache \
+        graphviz \
+        ttf-freefont
 
+# composer
+RUN curl --silent --show-error https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

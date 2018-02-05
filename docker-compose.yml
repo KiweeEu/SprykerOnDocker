@@ -4,7 +4,7 @@ services:
     image: kiwee:php71
     build: ./docker/php71
     volumes:
-      - .:/var/www/html
+      - ./demoshop:/var/www/html
       - ./docker/php71/php-fpm.conf:/usr/local/etc/php-fpm.conf
     networks:
       - backend
