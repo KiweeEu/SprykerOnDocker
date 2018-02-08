@@ -46,7 +46,8 @@ RUN apk add --update --no-cache postgresql-dev \
 
 # pdo_pgsql
 RUN apk add --update --no-cache postgresql-dev \
-    && docker-php-ext-install pdo_pgsql
+    && docker-php-ext-install pdo_pgsql \
+    && docker-php-ext-install pgsql
 
 # graphviz
 RUN apk add --update --no-cache \
